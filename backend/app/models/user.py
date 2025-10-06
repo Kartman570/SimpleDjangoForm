@@ -7,7 +7,6 @@ class User(models.Model):
         MEDIUM = "medium", "medium"
         HIGH = "high", "high"
 
-
     firstname = models.TextField(max_length=10)
     lastname = models.TextField(max_length=20)
     email = models.TextField()

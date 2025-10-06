@@ -50,7 +50,8 @@ class TestUserView:
         self.client = APIClient()
 
     # ___CREATE___
-    def test_create_user(self, client, sample_user_data):
+    @staticmethod
+    def test_create_user(client, sample_user_data):
         resp = client.post("/users/", data=sample_user_data, format="json")
         body = resp.json()
 
@@ -60,7 +61,8 @@ class TestUserView:
         assert len(user_view_module.FAKE_DB) == 1
 
     # ___LIST___
-    def test_list_users_returns_all(self, client, sample_user_data, sample_user_data_second):
+    @staticmethod
+    def test_list_users_returns_all(client, sample_user_data, sample_user_data_second):
         resp = client.get("/users/")
         data = resp.json()
 
@@ -81,19 +83,22 @@ class TestUserView:
         assert data[1]["firstname"] == sample_user_data_second["firstname"]
 
     # ___RETRIEVE___
-    def test_retrieve_user_by_id(self, client, sample_user_data):
+    @staticmethod
+    def test_retrieve_user_by_id(client, sample_user_data):
         client.post("/users/", data=sample_user_data, format="json")
         resp = client.get("/users/1/")
 
         assert resp.status_code == status.HTTP_200_OK
         assert resp.json()["firstname"] == sample_user_data["firstname"]
 
-    def test_retrieve_not_found(self, client):
+    @staticmethod
+    def test_retrieve_not_found(client):
         resp = client.get("/users/999/")
         assert resp.status_code == status.HTTP_404_NOT_FOUND
 
     # ___PUT___
-    def test_full_update_user_put(self, client, sample_user_data, sample_user_data_second):
+    @staticmethod
+    def test_full_update_user_put(client, sample_user_data, sample_user_data_second):
         new_data = {**sample_user_data, "firstname": sample_user_data_second["firstname"]}
 
         client.post("/users/", data=sample_user_data, format="json")
@@ -103,7 +108,8 @@ class TestUserView:
         assert resp.json()["firstname"] == sample_user_data_second["firstname"]
 
     # ___PATCH___
-    def test_partial_update_user_patch(self, client, sample_user_data, sample_user_data_second):
+    @staticmethod
+    def test_partial_update_user_patch(client, sample_user_data, sample_user_data_second):
         new_lastname = sample_user_data_second["lastname"]
 
         client.post("/users/", data=sample_user_data, format="json")
@@ -113,29 +119,34 @@ class TestUserView:
         assert resp.json()["lastname"] == new_lastname
 
     # ___DELETE___
-    def test_delete_user(self, client, sample_user_data):
+    @staticmethod
+    def test_delete_user(client, sample_user_data):
         client.post("/users/", data=sample_user_data, format="json")
         resp = client.delete("/users/1/")
 
         assert resp.status_code == status.HTTP_204_NO_CONTENT
         assert len(user_view_module.FAKE_DB) == 0
 
-    def test_delete_user_not_found(self, client):
+    @staticmethod
+    def test_delete_user_not_found(client):
         resp = client.delete("/users/999/")
         assert resp.status_code == status.HTTP_404_NOT_FOUND
 
     # ___VALIDATION___
-    def test_create_user_incorrect_name(self, client, sample_user_data):
+    @staticmethod
+    def test_create_user_incorrect_name(client, sample_user_data):
         new_data = {**sample_user_data, "firstname": "JohnJohnJohnJohnJohn"}
         resp = client.post("/users/", data=new_data, format="json")
         assert resp.status_code == status.HTTP_400_BAD_REQUEST
 
-    def test_create_user_incorrect_email(self, client, sample_user_data):
+    @staticmethod
+    def test_create_user_incorrect_email(client, sample_user_data):
         new_data = {**sample_user_data, "email": "John@example"}
         resp = client.post("/users/", data=new_data, format="json")
         assert resp.status_code == status.HTTP_400_BAD_REQUEST
 
-    def test_create_user_incorrect_exp(self, client, sample_user_data):
+    @staticmethod
+    def test_create_user_incorrect_exp(client, sample_user_data):
         new_data = {**sample_user_data, "experience": "some_level"}
         resp = client.post("/users/", data=new_data, format="json")
         assert resp.status_code == status.HTTP_400_BAD_REQUEST

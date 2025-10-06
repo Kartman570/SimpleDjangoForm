@@ -13,10 +13,12 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.none()
 
-    def list(self, request):
+    @staticmethod
+    def list(request):
         return Response(list(FAKE_DB.values()))
 
-    def retrieve(self, request, pk=None):
+    @staticmethod
+    def retrieve(request, pk=None):
         pk = int(pk)
         user = FAKE_DB.get(pk)
         if not user:
@@ -46,7 +48,8 @@ class UserViewSet(viewsets.ModelViewSet):
         print(f'---API_LOGS---Update user data via PATCH/PUT:\n{request.data}')
         return Response(FAKE_DB[pk])
 
-    def destroy(self, request, pk=None):
+    @staticmethod
+    def destroy(request, pk=None):
         pk = int(pk)
         if pk in FAKE_DB:
             del FAKE_DB[pk]
