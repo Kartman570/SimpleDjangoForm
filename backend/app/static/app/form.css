@@ -4,16 +4,16 @@
 
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 16px;
     background: #fff;
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
 }
 
 form {
-    width: 480px;
+    width: 100%;
+    max-width: 480px;
     text-align: center;
 }
 
@@ -23,6 +23,7 @@ h1 {
     margin-bottom: 25px;
 }
 
+/* Base grid layout */
 .row {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -30,9 +31,10 @@ h1 {
     margin-bottom: 26px;
 }
 
+/* Nested grid for phone group */
 .phone-group {
     display: grid;
-    grid-template-columns: 0.5fr 1fr;
+    grid-template-columns: 0.6fr 1.4fr;
     gap: 8px;
 }
 
@@ -118,4 +120,51 @@ button:hover {
     color: #3f8d46;
     font-size: 14px;
     margin-top: 15px;
+}
+
+/* ======================== Responsive ======================== */
+
+/* Tablet (<= 900px): keep two columns but increase spacing */
+@media (max-width: 900px) {
+    form {
+        max-width: 420px;
+    }
+    .row {
+        gap: 10px;
+    }
+}
+
+/* Small tablet / large mobile (<= 700px): collapse to one column */
+@media (max-width: 700px) {
+    form {
+        max-width: 90%;
+    }
+    .row {
+        grid-template-columns: 1fr;
+    }
+    .phone-group {
+        grid-template-columns: 0.8fr 1.2fr;
+    }
+    .actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    button {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+/* Mobile (<= 480px): full width */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    h1 {
+        font-size: 18px;
+    }
+    input, select, button {
+        font-size: 13px;
+        padding: 9px;
+    }
 }
