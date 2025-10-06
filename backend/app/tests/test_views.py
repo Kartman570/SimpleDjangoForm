@@ -150,3 +150,9 @@ class TestUserView:
         new_data = {**sample_user_data, "experience": "some_level"}
         resp = client.post("/users/", data=new_data, format="json")
         assert resp.status_code == status.HTTP_400_BAD_REQUEST
+
+    @staticmethod
+    def test_get_error():
+        a = True
+        b = False
+        assert a == b
