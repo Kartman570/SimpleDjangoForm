@@ -1,9 +1,10 @@
 import django
+
 django.setup()
 
 import pytest
-from rest_framework.test import APIClient
 from rest_framework import status
+from rest_framework.test import APIClient
 
 # for mocking DB
 import app.views.user as user_view_module
@@ -26,9 +27,10 @@ def sample_user_data():
         "firstname": "John",
         "lastname": "Doe",
         "email": "John@example.com",
+        "country": "USA",
         "code": "111",
         "phone": "123456789",
-        "experience": "low"
+        "experience": "low",
     }
 
 @pytest.fixture
@@ -37,9 +39,10 @@ def sample_user_data_second():
         "firstname": "Jane",
         "lastname": "Doe2",
         "email": "Jane@example.com",
+        "country": "USA",
         "code": "111",
         "phone": "123456789",
-        "experience": "low"
+        "experience": "low",
     }
 
 class TestUserView:

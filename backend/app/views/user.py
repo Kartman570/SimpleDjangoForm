@@ -1,8 +1,8 @@
 from rest_framework import viewsets
-from app.models import User
-from app.serializers import UserSerializer
 from rest_framework.response import Response
 
+from app.models import User
+from app.serializers import UserSerializer
 
 FAKE_DB = {}
 NEXT_ID = 1
@@ -24,7 +24,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(user)
 
     def create(self, request):
-        global NEXT_ID
+        global NEXT_ID #  noqa: PLW0603
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user_data = {"id": NEXT_ID, **serializer.validated_data}
