@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Join Form</title>
+    <link rel="stylesheet" href="{% static 'app/form.css' %}">
+</head>
+<body>
+<form id="userForm">
+    <h1>User form example</h1>
+
+    <div class="row">
+        <div class="field">
+            <input name="firstname" placeholder="First Name" required>
+        </div>
+        <div class="field">
+            <input name="lastname" placeholder="Last Name" required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="field">
+            <select name="country" required>
+                <option value="">Country</option>
+                <option value="Georgia">Georgia</option>
+                <option value="USA">United States</option>
+                <option value="Germany">Germany</option>
+            </select>
+        </div>
+        <div class="field phone-group">
+            <input name="code" placeholder="Code" required>
+            <input name="phone" placeholder="Phone" required>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="field">
+            <input type="email" name="email" placeholder="Email" required>
+        </div>
+        <div class="field">
+            <select name="experience" required>
+                <option value="">Experience</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="actions">
+        <label class="checkbox">
+            <input type="checkbox" id="terms" required>
+            <span>I have read and accepted the <a href="#">Privacy Policy</a> and <a href="#">Terms and Conditions</a></span>
+        </label>
+        <button type="submit">JOIN NOW</button>
+    </div>
+
+    <p id="status" class="success"></p>
+</form>
+
+<script src="{% static 'app/form.js' %}"></script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 x-app-config: &app-config
-  DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,0.0.0.0
+  DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,0.0.0.0,testserver
 
 services:
   backend:

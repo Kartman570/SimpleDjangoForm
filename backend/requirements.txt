@@ -1,1 +1,4 @@
 Django
+djangorestframework
+drf_yasg
+pytest
