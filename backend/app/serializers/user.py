@@ -1,9 +1,14 @@
+"""
+Serializer for the User model.
+Validate input and define structure of user data.
+"""
 from rest_framework import serializers
 
 from app.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
+    """Length limitation are picked for example. Approval from the PM is required"""
 
     firstname = serializers.CharField(max_length=10)
     lastname = serializers.CharField(max_length=20)
@@ -17,4 +22,4 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['firstname', 'lastname', 'country', 'email', 'code', 'phone', 'experience']
+        fields = ['firstname', 'lastname', 'email', 'country', 'code', 'phone', 'experience']

@@ -1,7 +1,12 @@
+"""
+Defines the User model.
+Used only for validation - no real database persistence.
+"""
 from django.db import models
 
 
 class User(models.Model):
+    """Length limitation are picked for example. Approval from the PM is required"""
     class Experience(models.TextChoices):
         LOW = "low", "low"
         MEDIUM = "medium", "medium"

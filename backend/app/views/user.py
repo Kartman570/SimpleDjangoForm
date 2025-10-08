@@ -1,3 +1,8 @@
+"""
+Since that test project require no DB, all data oriented actions are performed with file variable.
+Because of that, we rewrite all methods inside viewset into static methods.
+Overall structure of modelviewset remains close to what it should be
+"""
 from rest_framework import viewsets
 from rest_framework.response import Response
 
@@ -9,16 +14,23 @@ NEXT_ID = 1
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    # mock and overwrite most of a class, because there is no DB
+    """
+    Viewset for user CRUD operations.
+    Django from the box already can handle main CRUD ops.
+    But we use fake DB variable, so we need to rewrite all methods inside.
+    No filtering or permission checks right now
+    """
     serializer_class = UserSerializer
     queryset = User.objects.none()
 
     @staticmethod
     def list(request):
+        """GET viewset for retrieve all available users in fake DB variable"""
         return Response(list(FAKE_DB.values()))
 
     @staticmethod
     def retrieve(request, pk=None):
+        """GET viewset for retrieve specific user by id in fake DB variable"""
         pk = int(pk)
         user = FAKE_DB.get(pk)
         if not user:
@@ -26,6 +38,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(user)
 
     def create(self, request):
+        """POST viewset creates new user record in fake DB variable"""
         global NEXT_ID #  noqa: PLW0603
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -37,6 +50,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(user_data, status=201)
 
     def update(self, request, pk=None, *args, **kwargs):
+        """PUT/PATCH viewset to update user record in fake DB variable"""
         partial = kwargs.pop('partial', False)
         pk = int(pk)
         if pk not in FAKE_DB:
@@ -50,6 +64,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @staticmethod
     def destroy(request, pk=None):
+        """DELETE viewset to remove specific user record by id from fake DB variable"""
         pk = int(pk)
         if pk in FAKE_DB:
             del FAKE_DB[pk]
